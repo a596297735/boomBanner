@@ -82,12 +82,11 @@
                     for (var i = 0; i < allI.length; i++) {
                         allI[i].style.transform = `
                     perspective(800px)
-                    translateX(${Math.random() * 200 - 100}px)
-                    translateY(${Math.random() * 200 - 100}px)
-                    rotateX(${Math.random() * 360 - 180}deg)
-                    rotateY(${Math.random() * 360 - 180}deg)
-                    translateZ(${Math.random() * 200 + 100}px)
+                    translateX(${Math.random() * 600 - 300}px)
+                    translateY(${Math.random() * 600 - 300}px)
                     scale(${Math.random() * 2 + 1})
+                    rotateX(${Math.random() * 360}deg)
+                    rotateY(${Math.random() * 360}deg)
                     `;
                         allI[i].style.opacity = 0;
                         allI[i].style.transition = `all ${Math.random() * 1 + 0.5}s`;
