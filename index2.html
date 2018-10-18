@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>爆炸轮播图2.0版本</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            overflow: hidden;
+            background: #000;
+        }
+
+        #wrap {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 1000px;
+            height: 600px;
+            margin-left: -500px;
+            margin-top: -300px;
+            transform-style: preserve-3d;
+            transform: perspective(800px)
+        }
+
+        #wrap i {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap"></div>
+    <script>
+        var imgArr = ['./img/1.jpg', './img/2.jpg', './img/3.jpg', './img/4.jpg', './img/5.jpg'],
+            index = 0;
+        boom(10, 10);
+        function boom(row, col) {
+            var row = row,
+                col = col;
+
+            for (var i = 0; i < row; i++) {
+                for (var j = 0; j < col; j++) {
+                    var oI = document.createElement("i");
+                    wrap.appendChild(oI)
+                    oI.style.width = wrap.clientWidth / col + 'px';
+                    oI.style.height = wrap.clientHeight / row + 'px';
+                    oI.style.left = oI.clientWidth * j + 'px';
+                    oI.style.top = oI.clientHeight * i + 'px';
+                    oI.style.backgroundImage = `url(${imgArr[index]})`;
+                    oI.style.backgroundPositionX = oI.clientWidth * -j + 'px';
+                    oI.style.backgroundPositionY = oI.clientHeight * -i + 'px';
+                    oI.style.backgroundSize = wrap.clientWidth + "px " + wrap.clientHeight + "px";
+                }
+            }
+            index++;
+            index %= imgArr.length;
+            var allI = document.getElementsByTagName("i");
+
+            for (var i = 0; i < allI.length; i++) {
+                allI[i].style.transform = `
+                 translateX(${Math.random() * 400 - 200}px)
+                 translateY(${Math.random() * 400 - 200}px)
+                 rotateX(${Math.random() * 720}deg)
+                 rotateY(${Math.random() * 720}deg)
+            `;
+                allI[i].style.transition = `all ${Math.random() * 1 + 0.5}s`;
+            }
+
+            setTimeout(function () {
+                for (var i = 0; i < allI.length; i++) {
+                    allI[i].style.backgroundImage = `url(${imgArr[index]})`;
+                    allI[i].style.transform = `
+                 translateX(0px)
+                 translateY(0px)
+                 rotateX(0deg)
+                 rotateY(0deg)
+            `;
+                    allI[i].style.transition = `all ${Math.random() * 1 + 0.5}s`;
+                }
+                setTimeout(function () {
+                    wrap.innerHTML = '';
+                    boom(10, 10)
+                }, 1500)
+            }, 2000)
+
+        }
+
+
+
+    </script>
+</body>
+
+</html>
